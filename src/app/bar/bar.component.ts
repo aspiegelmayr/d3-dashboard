@@ -18,6 +18,10 @@ export class BarComponent implements OnInit {
     this.createSvg();
     d3.csv("/assets/data.csv").then(data => this.drawBars(data));
   }
+
+  private logSomething(){
+    console.log()
+  }
   
   private createSvg(): void {
     this.svg = d3.select("figure#bar")
@@ -61,7 +65,8 @@ private drawBars(data: any[]): void {
   .attr("y", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
   .attr("width", x.bandwidth())
   .attr("height", (d: { Stars: d3.NumberValue; }) => this.height - y(d.Stars))
-  .attr("fill", "#d04a35");
+  .attr("fill", "#d04a35")
+  .on("click", this.logSomething())
 }
 
 

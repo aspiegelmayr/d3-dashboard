@@ -57,7 +57,7 @@ private drawChart(data: any[]): void {
   )
   .attr('fill', (d: any, i: any) => (this.colors(i)))
   .attr("stroke", "#121926")
-  .style("stroke-width", "1px");
+  .style("stroke-width", "1px")
 
   // Add labels
   const labelLocation = d3.arc()
@@ -69,7 +69,7 @@ private drawChart(data: any[]): void {
   .data(pie(data))
   .enter()
   .append('text')
-  .text((d: { data: { Country: any; }; }) => d.data.Country)
+  .text((d: { data: { Country: any, Number:any; }; }) => d.data.Country + "(" + d.data.Number+ ")")
   .attr("transform", (d: d3.DefaultArcObject) => "translate(" + labelLocation.centroid(d) + ")")
   .style("text-anchor", "middle")
   .style("font-size", 15);
