@@ -8,7 +8,7 @@ import * as d3 from "d3";
 })
 export class ScatterComponent implements OnInit {
   private svg: any;
-  private margin = 50;
+  private margin = 10;
   private width = 750 - (this.margin * 2);
   private height = 400 - (this.margin * 2);
   constructor() { }
@@ -30,7 +30,7 @@ export class ScatterComponent implements OnInit {
 private drawPlot(data: any[]): void {
   // Add X axis
   const x = d3.scaleLinear()
-  .domain([2009, 2017])
+  .domain([1, 200])
   .range([ 0, this.width ]);
   this.svg.append("g")
   .attr("transform", "translate(0," + this.height + ")")
@@ -38,7 +38,7 @@ private drawPlot(data: any[]): void {
 
   // Add Y axis
   const y = d3.scaleLinear()
-  .domain([0, 200000])
+  .domain([0, 10])
   .range([ this.height, 0]);
   this.svg.append("g")
   .call(d3.axisLeft(y));
@@ -49,7 +49,7 @@ private drawPlot(data: any[]): void {
   .data(data)
   .enter()
   .append("circle")
-  .attr("cx", (d: { Released: d3.NumberValue; }) => x(d.Released))
+  .attr("cx", (d: { ReviewNumber: d3.NumberValue; }) => x(d.ReviewNumber))
   .attr("cy", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
   .attr("r", 7)
   .style("opacity", .5)
@@ -60,9 +60,11 @@ private drawPlot(data: any[]): void {
   .data(data)
   .enter()
   .append("text")
-  .text((d: { Framework: any; }) => d.Framework)
-  .attr("x", (d: { Released: d3.NumberValue; }) => x(d.Released))
+  .attr("x", (d: { ReviewNumber: d3.NumberValue; }) => x(d.ReviewNumber))
   .attr("y", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
+
+  
 }
+
 
 }
