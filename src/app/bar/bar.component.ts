@@ -45,7 +45,7 @@ private drawBars(data: any[]): void {
 
   // Create the Y-axis band scale
   const y = d3.scaleLinear()
-  .domain([0, 200000])
+  .domain([0, 10])
   .range([this.height, 0]);
 
   // Draw the Y-axis on the DOM

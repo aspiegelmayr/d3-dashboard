@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BarComponent } from './bar/bar.component';
 import { PieComponent } from './pie/pie.component';
 import { ScatterComponent } from './scatter/scatter.component';
-import { LineComponent } from './line/line.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,6 @@ import { LineComponent } from './line/line.component';
     BarComponent,
     PieComponent,
     ScatterComponent,
-    LineComponent
   ],
   imports: [
     BrowserModule
