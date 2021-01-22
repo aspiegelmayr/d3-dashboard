@@ -33,7 +33,7 @@ private drawPlot(data: any[]): void {
   // Add X axis
   const x = d3.scaleLinear()
   .domain([1, 200])
-  .range([ 0, this.width ]);
+  .range([ 0, 600 ]);
   this.svg.append("g")
   .attr("transform", "translate(0," + this.height + ")")
   .call(d3.axisBottom(x).tickFormat(d3.format("d")));

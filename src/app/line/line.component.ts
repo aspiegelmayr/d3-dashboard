@@ -26,6 +26,7 @@ export class LineComponent implements OnInit  {
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
   public ngOnInit(): void {
+    
     this.buildSvg();
     d3.csv("/assets/data.csv").then(data => this.drawLineAndPath(data));
   }
@@ -33,7 +34,7 @@ export class LineComponent implements OnInit  {
   private buildSvg() {
     this.svg = d3.select('figure#line')
     .append("svg")
-    .attr("width", 700)
+    .attr("width", 600)
     .attr("height", 500)
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');

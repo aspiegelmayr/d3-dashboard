@@ -1,7 +1,22 @@
 <header>
   <h1>Ramen Ratings</h1>
 </header>
-<app-bar></app-bar>
+<div style="color:black">
+  <div>
+    <input type="checkbox" name="rad3" [checked]="value === 'everything'" (click)="value = 'everything'"> All
+    <input type="checkbox" name="rad2" [checked]="value === 'Japan'" (click)="value = 'Japan'"> Japan
+    <input type="checkbox" name="rad2" [checked]="value === 'USA'" (click)="value = 'USA'"> USA
+  </div>
+
+<div *ngIf="value === 'everything'">
+  <app-bar country="all"></app-bar>
+</div>   
+<div *ngIf="value === 'Japan'">
+  <app-bar country="japan"></app-bar>
+</div>   
+<div *ngIf="value === 'USA'">
+  <app-bar country="usa"></app-bar>
+</div>   
 <app-pie></app-pie>
 <app-scatter></app-scatter>
 <app-line></app-line>
