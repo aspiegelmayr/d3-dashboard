@@ -11,49 +11,40 @@ import * as d3Axis from 'd3';
 })
 export class LineComponent implements OnInit  {
   public title = 'Line Chart';
-    data: any[] = [
-    {date: new Date('2010-01-01'), value: 40},
-    {date: new Date('2010-01-04'), value: 93},
-    {date: new Date('2010-01-05'), value: 95},
-    {date: new Date('2010-01-06'), value: 130},
-    {date: new Date('2010-01-07'), value: 110},
-    {date: new Date('2010-01-08'), value: 120},
-    {date: new Date('2010-01-09'), value: 129},
-    {date: new Date('2010-01-10'), value: 107},
-    {date: new Date('2010-01-11'), value: 140},
-  ];
 
-  private svg: any;
-  private margin = 50;
-  private width = 750 - (this.margin * 2);
-  private height = 400 - (this.margin * 2);
+  private margin = {top: 20, right: 20, bottom: 30, left: 50};
+  private width: number;
+  private height: number;
   private x: any;
   private y: any;
-  private line!: d3Shape.Line<[number, number]>; // this is line defination
- // this is line defination
+  private svg: any;
+  private line!: d3Shape.Line<[number, number]>;
 
   constructor () {
+    // configure margins and width/height of the graph
+    this.width = 700;
+    this.height = 500 - this.margin.top - this.margin.bottom;
   }
   public ngOnInit(): void {
     this.buildSvg();
-    this.addXandYAxis();
-    this.drawLineAndPath();
+    d3.csv("/assets/data.csv").then(data => this.drawLineAndPath(data));
   }
   
   private buildSvg() {
     this.svg = d3.select('figure#line')
     .append("svg")
-    .attr("width", this.width -20)
-    .attr("height", this.height - 20)
+    .attr("width", 700)
+    .attr("height", 500)
       .append('g')
-      .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
-  private addXandYAxis() {
+  private addXandYAxis(data: any[]) {
+    console.log(data)
     // range of data configuring
     this.x = d3Scale.scaleTime().range([0, this.width]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
-    this.x.domain(d3Array.extent(this.data, (d) => d.date ));
-    this.y.domain(d3Array.extent(this.data, (d) => d.value ));
+    this.x.domain(d3Array.extent(data, (data) => data.ReviewNumber ));
+    this.y.domain(d3Array.extent(data, (data) => data.Stars ));
     // Configure the X Axis
     this.svg.append('g')
         .attr('transform', 'translate(0,' + this.height + ')')
@@ -64,14 +55,17 @@ export class LineComponent implements OnInit  {
         .call(d3Axis.axisLeft(this.y));
   }
 
-  private drawLineAndPath() {
+  private drawLineAndPath(data: any[]) {
+    this.addXandYAxis(data);
     this.line = d3Shape.line()
-        .x( (d: any) => this.x(d.date) )
-        .y( (d: any) => this.y(d.value) );
+        .x( (d: any) => this.x(d.ReviewNumber) )
+        .y( (d: any) => this.y(d.Stars) );
     // Configuring line path
     this.svg.append('path')
-        .datum(this.data)
-        .attr('class', 'line')
-        .attr('d', this.line);
+        .datum(data)
+        .attr('d', this.line)
+        .attr("fill", "none")
+        .attr("stroke", "#feb24c");
   }
 }
+//'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'

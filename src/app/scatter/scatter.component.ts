@@ -7,10 +7,12 @@ import * as d3 from "d3";
   styleUrls: ['./scatter.component.css']
 })
 export class ScatterComponent implements OnInit {
+  private margin = {top: 20, right: 20, bottom: 30, left: 50};
+  private width = 700;
+  private height = 500 - this.margin.top - this.margin.bottom;;
+  private x: any;
+  private y: any;
   private svg: any;
-  private margin = 10;
-  private width = 750 - (this.margin * 2);
-  private height = 400 - (this.margin * 2);
   constructor() { }
 
   ngOnInit(): void {
@@ -21,10 +23,10 @@ export class ScatterComponent implements OnInit {
   private createSvg(): void {
     this.svg = d3.select("figure#scatter")
     .append("svg")
-    .attr("width", this.width + (this.margin * 2))
-    .attr("height", this.height + (this.margin * 2))
-    .append("g")
-    .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+    .attr("width", 700)
+    .attr("height", 500)
+      .append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 }
 
 private drawPlot(data: any[]): void {
@@ -53,8 +55,31 @@ private drawPlot(data: any[]): void {
   .attr("cy", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
   .attr("r", 7)
   .style("opacity", .5)
-  .style("fill", "#69b3a2");
+  .style("fill", function(d: { Style: string },i: any){
+    switch(d.Style){
+      case "Bowl":
+        return "#ffeda0"
+        break;
+      case "Tray":
+        return "#feb24c"
+        break;
+      case "Pack":
+        return "#fc4e2a"
+        break;
+        case "Cup":
+        return "#bd0026"
+        break;
+        default:
+          console.log(d.Style)
+          return "#800026"
+    }
+});
 
+//'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+    
   // Add labels
   dots.selectAll("text")
   .data(data)
@@ -62,8 +87,6 @@ private drawPlot(data: any[]): void {
   .append("text")
   .attr("x", (d: { ReviewNumber: d3.NumberValue; }) => x(d.ReviewNumber))
   .attr("y", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
-
-  
 }
 
 

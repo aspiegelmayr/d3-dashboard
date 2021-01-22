@@ -37,7 +37,7 @@ export class PieComponent implements OnInit {
 private createColors(data: any[]): void {
   this.colors = d3.scaleOrdinal()
   .domain(data.map(d => d.Number.toString()))
-  .range(["#edfff2", "#d4fadf", "#b5f5c8", "#92fcb2", "#74f79c", "#56f586", "#32db65", "#13d64e", "#00b336", "#08852e", "#075c21"]);
+  .range(['#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026']);
 }
 
 private drawChart(data: any[]): void {

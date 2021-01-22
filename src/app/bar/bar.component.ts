@@ -65,7 +65,7 @@ private drawBars(data: any[]): void {
   .attr("y", (d: { Stars: d3.NumberValue; }) => y(d.Stars))
   .attr("width", x.bandwidth())
   .attr("height", (d: { Stars: d3.NumberValue; }) => this.height - y(d.Stars))
-  .attr("fill", "#d04a35")
+  .attr("fill", "#fc4e2a")
   .on("click", this.logSomething())
 }
 
